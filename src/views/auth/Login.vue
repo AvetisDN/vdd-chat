@@ -6,10 +6,18 @@
     </div>
     <button
       class="bg-indigo-500 leading-none py-4 px-6 text-xl flex items-center gap-2 rounded-full uppercase font-bold tracking-wider"
-      @click="loginDiscord"
+      @click="login('discord')"
     >
       <i class="fa-solid fa-spinner fa-spin-pulse w-[26px]" v-if="loading"></i>
       <i class="fa-brands fa-discord" v-else></i>
+      Join
+    </button>
+    <button
+      class="bg-red-500 leading-none py-4 px-6 text-xl flex items-center gap-2 rounded-full uppercase font-bold tracking-wider"
+      @click="login('google')"
+    >
+      <i class="fa-solid fa-spinner fa-spin-pulse w-[26px]" v-if="loading"></i>
+      <i class="fa-brands fa-google" v-else></i>
       Join
     </button>
     <div
@@ -32,11 +40,11 @@ const loading = ref(false);
 const errorResponse = ref(false);
 const message = ref("");
 
-const loginDiscord = async () => {
+const login = async (provider) => {
   try {
     loading.value = true;
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "discord",
+      provider,
     });
     if (error) {
       throw error;

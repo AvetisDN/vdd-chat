@@ -7,11 +7,7 @@
       <span class="font-bold uppercase text-lg">Dungeon</span>
     </div>
     <div class="flex gap-3">
-      <button
-        class="w-10 h-10 border-2 rounded-full border-zinc-200 dark:border-zinc-500"
-      >
-        <i class="fa-solid fa-user-astronaut"></i>
-      </button>
+      <Avatar :full_name="full_name" :avatar_url="avatar_url" />
       <button class="w-10 h-10 rounded-full" @click="logOut">
         <i
           class="fa-solid fa-spinner fa-spin-pulse w-[26px]"
@@ -33,10 +29,16 @@
 import { supabase } from "@/supabase";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import Avatar from "@/views/chat/Avatar.vue";
 
 const loading = ref(false);
 const errorResponse = ref(false);
 const message = ref("");
+
+const props = defineProps({
+  avatar_url: String,
+  full_name: String,
+});
 
 const router = useRouter();
 const logOut = async () => {
